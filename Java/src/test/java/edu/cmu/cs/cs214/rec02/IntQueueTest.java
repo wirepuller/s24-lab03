@@ -38,8 +38,8 @@ public class IntQueueTest {
     @Before
     public void setUp() {
         // comment/uncomment these lines to test each class
-        mQueue = new LinkedIntQueue();
-    //    mQueue = new ArrayIntQueue();
+        //mQueue = new LinkedIntQueue();
+        mQueue = new ArrayIntQueue();
 
         testList = new ArrayList<>(List.of(1, 2, 3));
     }
@@ -47,25 +47,27 @@ public class IntQueueTest {
     @Test
     public void testIsEmpty() {
         // This is an example unit test
+        
         assertTrue(mQueue.isEmpty());
     }
 
     @Test
     public void testNotEmpty() {
         // TODO: write your own unit test
-        fail("Test not implemented");
+        mQueue.enqueue(100); 
+        assertFalse(mQueue.isEmpty());
     }
 
     @Test
     public void testPeekEmptyQueue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+       assertNull(mQueue.peek());
     }
 
     @Test
     public void testPeekNoEmptyQueue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        Integer peekVal = 1;
+        mQueue.enqueue(peekVal);
+        assertEquals(peekVal, mQueue.peek());
     }
 
     @Test
@@ -80,8 +82,37 @@ public class IntQueueTest {
 
     @Test
     public void testDequeue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        Integer peekVal = 1;
+        mQueue.enqueue(peekVal);
+        mQueue.dequeue();
+        assertTrue(mQueue.isEmpty());
+    }
+
+    @Test
+    public void testClear() {
+        Integer peekVal = 1;
+        Integer peekVal2 = 2;
+        mQueue.enqueue(peekVal);
+        mQueue.enqueue(peekVal2);
+        mQueue.clear();
+        assertTrue(mQueue.isEmpty());
+    }
+
+    @Test
+    public void testEmptyQueueNoDequeue() {
+        assertEquals(mQueue.dequeue(), null);
+    }
+    
+    @Test
+    public void testEnsureCapacity() {
+        mQueue.enqueue(1);
+        mQueue.dequeue();
+        for (int i = 0; i < 10; i++) {
+            mQueue.enqueue(i);
+        }
+        assertEquals(mQueue.size(), 10);
+        mQueue.enqueue(11);
+        assertEquals(mQueue.size(), 11);
     }
 
     @Test
